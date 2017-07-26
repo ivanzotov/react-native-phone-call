@@ -1,6 +1,5 @@
 package com.github.ivanzotov.RNPhoneCall;
 
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -17,12 +16,10 @@ import java.util.Date;
 
 public class RNPhoneCallModule extends ReactContextBaseJavaModule {
     ReactApplicationContext reactContext;
-    AlarmManager alarmManager;
 
     public RNPhoneCallModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
-        alarmManager = (AlarmManager) reactContext.getSystemService(Context.ALARM_SERVICE);
     }
 
     @Override
@@ -33,7 +30,7 @@ public class RNPhoneCallModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void phoneCall(String number) {
         String url = "tel:" + number;
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(url));
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(url));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         this.reactContext.startActivity(intent);
     }
